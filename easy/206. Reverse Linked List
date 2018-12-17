@@ -14,3 +14,5 @@ class Solution:
         while cur:
             cur.next,prev,cur = prev,cur,cur.next
         return prev
+
+# ！！！！cur.next, prev, cur = prev, cur, cur.next 先算好等号右边的所有值，然后一次性赋给左边
