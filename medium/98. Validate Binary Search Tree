@@ -49,5 +49,18 @@ class Solution:
         
  3.
  
+def isValidBST(self, root):
+    res, self.flag = [], True
+    self.helper(root, res)
+    return self.flag
+    
+def helper(self, root, res):
+    if root:
+        self.helper(root.left, res)
+        if res and root.val <= res[-1]:
+            self.flag = False
+            return
+        res.append(root.val)
+        self.helper(root.right, res)
  
         
