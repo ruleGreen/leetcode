@@ -1,3 +1,5 @@
+Python
+
 class Solution:
     def generateParenthesis(self, n):
         """
@@ -18,3 +20,26 @@ class Solution:
             self._gen(left, right + 1, n, result + ")")
             
         
+Java
+
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<String>();
+        generateOnebyOne("", result, n, n);
+        return result;
+    }
+    
+    public void generateOnebyOne(String sublist, List<String> result, int left, int right){
+        if (left == 0 && right ==0){
+            result.add(sublist);
+            return;
+        }
+        if (left > 0){
+            generateOnebyOne(sublist + "(", result, left - 1, right);
+        }
+        if (right > left){
+            generateOnebyOne(sublist + ")", result, left, right - 1);
+        }
+    }
+}
