@@ -1,0 +1,17 @@
+Solutions:
+
+1. python
+
+class Solution(object):
+    def isPowerOfTwo(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        return n > 0 and not (n & n - 1)
+        
+2. java
+
+bool isPowerOfTwo(int n){
+  return n > 0 && !(n & (n-1))
+}
