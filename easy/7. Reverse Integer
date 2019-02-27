@@ -1,0 +1,16 @@
+class Solution:
+    def reverse(self, x: int) -> int:
+        if x == 0 or x > pow(2,31)-1 or x < -pow(2,31): return 0
+        
+        y,re = x,''
+        
+        if y < 0:
+            y = -y
+        
+        while y > 0 :
+            re = re + str(y % 10)
+            y = y // 10
+        
+        if int(re) > pow(2,31)-1: return 0
+        
+        return int(re) if x > 0 else -int(re)
