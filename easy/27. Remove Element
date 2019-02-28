@@ -2,3 +2,12 @@ class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         while val in nums: nums.remove(val)
         return len(nums)
+        
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        m = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[m] = nums[i]
+                m += 1
+        return m
