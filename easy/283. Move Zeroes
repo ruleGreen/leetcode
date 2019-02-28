@@ -10,3 +10,18 @@ class Solution:
                 j += 1
         return None
         #print(nums)
+        
+        
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        vector<int> nonZeroElements;
+        for(int i = 0; i < nums.size(); i++)
+            if(nums[i])
+                nonZeroElements.push_back(nums[i]);
+        for(int i = 0; i < nonZeroElements.size(); i++)
+            nums[i] = nonZeroElements[i];
+        for(int i = nonZeroElements.size(); i < nums.size(); i++)
+            nums[i] = 0;
+    }
+};
