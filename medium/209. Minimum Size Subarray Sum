@@ -1,0 +1,22 @@
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        l,r,su = 0,-1,0
+        re = len(nums) + 1
+        while l < len(nums):
+            if su < s and r+1 < len(nums):
+                r += 1
+                su += nums[r]
+            else:
+                su -= nums[l]
+                l += 1
+                
+            if su >=s:
+                re = min(re,r-l+1)
+            
+        if re == len(nums)+1:
+            return 0
+        return re
+        
+        
+       
+        
