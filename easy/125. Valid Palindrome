@@ -1,0 +1,20 @@
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        # ASCII 97~122 小写英文字母 65~90 大写英文字母 
+        s = s.lower()
+        i,j = 0,len(s)-1
+        while i < j :
+            if (s[i] >= 'a' and s[i] <= 'z') or (s[i] >= '0' and s[i] <= '9'):
+                if (s[j] >= 'a' and s[j] <= 'z') or (s[j] >= '0' and s[j] <= '9'):
+                    if s[i] == s[j]:
+                        i += 1
+                        j -= 1
+                    else:
+                        return False
+                else:
+                    j -= 1
+            else:
+                i += 1
+        return True
+
+        
