@@ -9,3 +9,26 @@ class Solution:
                     p = stack.pop()
                     dp[i + 1] = dp[p] + i - p + 1
         return max(dp)
+
+
+class Solution:
+    def longestValidParentheses(self, s: str) -> int:
+        l=len(s)
+        S = "-"*l
+        Slist = list(S)
+        stack = []
+        out = 0
+        for i in range(l):
+            if s[i] == "(":
+                stack.append(i)
+            else :
+                if stack !=[]:
+                    Slist[stack[-1]] = '1'
+                    Slist[i] = '1'
+                    stack.pop(-1)
+        S = "".join(Slist)
+        b = S.split("-")
+        for i in b:
+            if len(i)>out:
+                out = len(i)
+        return out
