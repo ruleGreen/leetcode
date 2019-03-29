@@ -1,0 +1,10 @@
+class Solution:
+    def addDigits(self, num: int) -> int:
+        numl = list(map(int,str(num)))
+        while len(numl) > 1:
+            sum = 0
+            for i in range(len(numl)):
+                sum += numl[i]
+            numl = list(map(int,str(sum)))
+        return numl[0]
+        
