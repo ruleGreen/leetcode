@@ -1,0 +1,30 @@
+class Solution:
+    def generatePermutations(self, nums, index, p):
+        if index == len(nums):
+            p = p[:]
+            self.res.append(p)
+            # print(self.res)
+            return
+         
+        for i in range(len(nums)):
+            if not self.used[i]:
+                p.append(nums[i])
+                self.used[i] = True
+                self.generatePermutations(nums, index+1, p)
+                p.pop()
+                self.used[i] = False
+        
+        return
+    
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        self.res = []
+        if not nums:
+            return self.res
+        
+        self.used = [False for i in range(len(nums))]
+        p = []
+        self.generatePermutations(nums, 0, p)
+        
+        self.res = list(set([tuple(t) for t in self.res]))
+        
+        return self.res
