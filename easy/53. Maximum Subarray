@@ -1,0 +1,15 @@
+1. TLE
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        result = []
+        for i in range(len(nums)):
+            res = nums[i]
+            for j in range(i+1,len(nums)):
+                res = max(res, sum(nums[i:j+1]))
+            result.append(res)
+        res = max(result)
+        return res
