@@ -1,0 +1,13 @@
+class Solution:
+    def matrixReshape(self, nums: List[List[int]], r: int, c: int) -> List[List[int]]:
+        number = [ nums[i][j] for i in range(len(nums)) for j in range(len(nums[0]))]
+        # print(number)
+        if len(number) != r * c:
+            return nums
+        res = [ [ 0 for j in range(c)] for i in range(r)]
+        # print(res)
+        for i in range(r):
+            for j in range(c):
+                res[i][j] = number[i*c+j]
+                # print(res[i][j])
+        return res
