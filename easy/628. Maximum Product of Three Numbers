@@ -1,0 +1,15 @@
+class Solution:
+    def maximumProduct(self, nums: List[int]) -> int:
+        sort_num = sorted(nums,reverse = True)
+        if len(sort_num) >= 3:
+            if sort_num[-1] > 0:
+                return sort_num[0]*sort_num[1]*sort_num[2]
+            elif sort_num[0] < 0:
+                return sort_num[-1]*sort_num[-2]*sort_num[-3]
+            
+            return max(sort_num[0]*sort_num[-1]*sort_num[-2],
+                       sort_num[-1]*sort_num[-2]*sort_num[-3],
+                       sort_num[0]*sort_num[1]*sort_num[2])
+        else:
+            return 0
+            
