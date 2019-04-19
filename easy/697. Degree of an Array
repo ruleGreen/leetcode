@@ -7,6 +7,8 @@ class Solution:
             else:
                 d[nums[i]] = 1
         degree = max(d.values())
+        if degree == 1:
+            return 1
         res,values = len(nums),[]
         for k,v in d.items():
             if v == degree:
