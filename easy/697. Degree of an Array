@@ -1,0 +1,27 @@
+class Solution:
+    def findShortestSubArray(self, nums: List[int]) -> int:
+        d = {}
+        for i in range(len(nums)):
+            if nums[i] in d:
+                d[nums[i]] += 1
+            else:
+                d[nums[i]] = 1
+        degree = max(d.values())
+        res,values = len(nums),[]
+        for k,v in d.items():
+            if v == degree:
+                values.append(k)
+        start,end = {},{}
+        for i in range(len(nums)):
+            for j in range(len(values)):
+                if nums[i] == values[j]:
+                    if nums[i] not in start:
+                        start[values[j]] = i
+        for i in range(len(nums)):
+            for j in range(len(values)):
+                if nums[i] == values[j]:
+                    end[values[j]] = i
+        for k,v in start.items():
+            res = min(res, (end[k] - start[k] + 1))
+        return res
+        
