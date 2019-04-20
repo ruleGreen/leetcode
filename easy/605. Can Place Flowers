@@ -1,3 +1,6 @@
+1. python 
+
+# 可以进行进一步优化,在数组的前后补0即可避免对于第一个数字和最后一个数字进行多余的讨论
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
         if len(flowerbed) < 3:
@@ -42,4 +45,19 @@ class Solution:
                 flowerbed[i+1] = 1
                 
         return max_num >= n
-                
+
+2. java
+
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int i = 0, count = 0;
+        while (i < flowerbed.length){
+            if (flowerbed[i] == 0 && (i == 0 || flowerbed[i-1] == 0) && ( i == flowerbed.length - 1 || flowerbed[i+1] == 0)){
+                flowerbed[i] = 1;
+                count ++;
+            }
+            i ++;
+        }
+        return count >= n;
+    }
+}
