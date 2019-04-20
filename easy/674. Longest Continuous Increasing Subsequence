@@ -1,0 +1,17 @@
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        if nums is None or len(nums) == 0:
+            return 0
+        if len(nums) == 1:
+            return 1
+        res,count = [],0
+        for i in range(len(nums) - 1):
+            if nums[i] < nums[i+1]:
+                count += 1
+            else:
+                res.append(count)
+                count = 0
+            if i == len(nums) - 2:
+                res.append(count)
+        return max(res) + 1
+        
