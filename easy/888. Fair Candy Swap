@@ -1,0 +1,10 @@
+class Solution:
+    def fairCandySwap(self, A: List[int], B: List[int]) -> List[int]:
+        SUM = sum(A) + sum(B)
+        target = SUM // 2
+        for i in range(len(A)):
+            valueofB = target - (sum(A) - A[i])
+            if valueofB in B:
+                return [A[i],valueofB]
+                
+        
