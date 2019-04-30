@@ -1,0 +1,20 @@
+class Solution:
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        dc = {}
+        for i in range(len(deck)):
+            if deck[i] in dc:
+                dc[deck[i]] += 1
+            else:
+                dc[deck[i]] = 1
+        minV = min(dc.values())
+        if minV < 2:
+            return False
+        for i in range(2,minV+1):
+            flag = 0
+            for k,v in dc.items():
+                if v % i != 0:
+                    flag = 1
+            if flag == 0:
+                return True
+        return False
+        
