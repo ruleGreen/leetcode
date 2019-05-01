@@ -1,0 +1,12 @@
+class Solution:
+    def validMountainArray(self, A: List[int]) -> bool:
+        if len(A) < 3:
+            return False
+        maxV,index = max(A),0
+        for i in range(len(A)):
+            if A[i] == maxV:
+                index = i
+        if index == len(A)-1 or index == 0:
+            return False
+        return A[:index] == sorted(list(set(A[:index]))) and A[index:] == sorted(list(set(A[index:])),reverse=True)
+        
