@@ -1,0 +1,33 @@
+class Solution:
+    def commonChars(self, A: List[str]) -> List[str]:
+        l = A
+        if len(l) == 0:
+            return []
+        s = set(l[0])
+        print(s)
+        for i in range(1, len(l)):
+            s = s.intersection(l[i])
+            print(s)
+        d1 = {}
+        for c in l[0]:
+            if c in s:
+                if c in d1:
+                    d1[c] += 1
+                else:
+                    d1[c] = 1
+        for i in range(1, len(l)):
+            d2 = {}
+            for c in l[i]:
+                if c in s:
+                    if c in d2:
+                        d2[c] += 1
+                    else:
+                        d2[c] = 1
+            for k in d1:
+                d1[k] = min(d1[k], d2[k])
+        r = []
+        for k in d1:
+            for i in range(d1[k]):
+                r.append(k)
+        return r
+        
