@@ -1,0 +1,43 @@
+class Solution:
+    def numRookCaptures(self, board: List[List[str]]) -> int:
+        res = 0
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == 'R':
+                    for l in range(j-1,-1,-1):
+                        if board[i][l] == '.':
+                            continue
+                        elif board[i][l] == 'B':
+                            break
+                        elif board[i][l] == 'p':
+                            res += 1
+                            break
+                    # print(res)
+                    for r in range(j+1,len(board[0])):
+                        if board[i][r] == '.':
+                            continue
+                        elif board[i][r] == 'B':
+                            break
+                        elif board[i][r] == 'p':
+                            res += 1
+                            break
+                    # print(res)
+                    for u in range(i-1,-1,-1):
+                        if board[u][j] == '.':
+                            continue
+                        elif board[u][j] == 'B':
+                            break
+                        elif board[u][j] == 'p':
+                            res += 1
+                            break
+                    # print(res)
+                    for d in range(i+1,len(board)):
+                        if board[d][j] == '.':
+                            continue
+                        elif board[d][j] == 'B':
+                            break
+                        elif board[d][j] == 'p':
+                            res += 1
+                            break
+        return res
+        
