@@ -1,0 +1,9 @@
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        magazine = list(magazine)
+        for i, each in enumerate(ransomNote):
+            if each in magazine:
+                magazine.pop(magazine.index(each))
+            else:
+                return False
+        return True
