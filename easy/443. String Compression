@@ -1,0 +1,28 @@
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        res,i = [],0
+        while i < len(chars) - 1:
+            char = chars[i]
+            count,j = 0,i
+            while j < len(chars):
+                if chars[j] == char:
+                    count += 1
+                    if count >= 2:
+                        chars.pop(j)
+                        j -= 1
+                    j += 1
+                else:
+                    break
+                
+            if count >= 2:
+                count = list(str(count))
+                k = i + 1
+                for p in range(len(count)):
+                    chars.insert(k, count[p])
+                    k += 1
+                j += len(count)
+            i = j
+        return len(chars)
+            
+            
+        
