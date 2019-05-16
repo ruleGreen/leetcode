@@ -1,0 +1,9 @@
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+        res,words = [],list(word)
+        for i in range(len(words)):
+            if words[i] == words[i].lower():
+                res.append(i)
+        print(res)
+        return (len(res) == 0 or (0 not in res and len(res) == len(words) - 1) or len(res) == len(words))
+        
