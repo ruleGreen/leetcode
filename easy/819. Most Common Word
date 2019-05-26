@@ -1,0 +1,22 @@
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        replce = "!?',;."
+        for i in replce:
+            if i in paragraph:
+                paragraph=paragraph.replace(i," ")
+        para = paragraph.lower()
+        para = ''.join(c for c in para if c not in string.punctuation)
+        para = list(para.split(' '))
+        mostcommon = {}
+        for i in range(len(para)):
+            if para[i] in banned:
+                para[i] = 0
+            else:
+                if para[i] in mostcommon:
+                    mostcommon[para[i]] += 1
+                else:
+                    mostcommon[para[i]] = 1
+        mostcommon[''] = 0
+        for k, v in mostcommon.items():
+            if v == max(mostcommon.values()):
+                return k
