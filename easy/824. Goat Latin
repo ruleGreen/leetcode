@@ -1,0 +1,12 @@
+class Solution:
+    def toGoatLatin(self, S: str) -> str:
+        ls = list(S.split(' '))
+        for i in range(len(ls)):
+            if ls[i][0] in 'aeiouAEIOU' :
+                ls[i] = ls[i] + 'ma'
+            else:
+                ls[i] = ls[i][1:] + ls[i][0] + 'ma'
+            ls[i] = ls[i] + 'a' * (i + 1)
+        res = " ".join(ls)
+        return res
+        
