@@ -1,0 +1,11 @@
+class Solution:
+    def buddyStrings(self, A: str, B: str) -> bool:
+        if len(A) != len(B):  return False        
+        if A == B and len(A) > len(set(A)): return True
+        leftA = []
+        leftB = []
+        for i in range(len(A)):
+            if A[i] != B[i]:
+                leftA.append(A[i])
+                leftB.append(B[i])
+        return len(leftA) == 2 and leftA == leftB[::-1]
