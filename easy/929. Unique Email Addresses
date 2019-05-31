@@ -1,0 +1,20 @@
+class Solution:
+    def numUniqueEmails(self, emails: List[str]) -> int:
+        res = []
+        for i in range(len(emails)):
+            email = list(emails[i])
+            ati = email.index('@')
+            nemail,j = '',0
+            while j < ati:
+                if email[j] == '+':
+                    break
+                elif email[j] == '.':
+                    j += 1
+                else:
+                    nemail = nemail + email[j]
+                    j += 1
+            nemail = nemail + ''.join(email[ati:])
+            emails[i] = nemail
+        return len(set(emails))
+                
+        
