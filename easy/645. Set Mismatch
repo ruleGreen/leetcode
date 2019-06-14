@@ -1,0 +1,4 @@
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        ori = [ i for i in range(1,len(nums)+1)]
+        return [sum(nums) - sum(set(nums)), sum(ori) - sum(set(nums))]
