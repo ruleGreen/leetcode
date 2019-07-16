@@ -1,0 +1,22 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def convertBST(self, root: TreeNode) -> TreeNode:
+        # bst the right side is all greater than original node
+        self.sum = 0
+        
+        def convert(node):
+            if node:
+                convert(node.right)
+                
+                node.val, self.sum = node.val + self.sum, self.sum + node.val
+                
+                convert(node.left)
+                
+        convert(root)
+        return root
