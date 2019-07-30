@@ -24,3 +24,26 @@ class Solution:
             # is it the same tree not subtree?
             return (self.isSubtree(s.left, t) or self.isSubtree(s.right, t)) or (isSametree(s.left, t.left) and isSametree(s.right, t.right))
         return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+        
+        def isSametree(s, t):
+            if s is None and t is None:
+                return True
+            if s is None or t is None:
+                return False
+            if s.val != t.val:
+                return False
+            return isSametree(s.left, t.left) and isSametree(s.right, t.right)
+        if s is None:
+            return False
+        return isSametree(s, t) or (self.isSubtree(s.left, t) or self.isSubtree(s.right, t))
