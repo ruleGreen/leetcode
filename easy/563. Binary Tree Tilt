@@ -1,0 +1,31 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def findTilt(self, root: TreeNode) -> int:
+        self.res = 0
+        def tilt(node):
+            if not node:
+                return 0
+            if node.left:
+                tilt(node.left)
+            if node.right:
+                tilt(node.right)
+            left = calSum(node.left)
+            right = calSum(node.right)
+            self.res += abs(left - right)
+        
+        def calSum(node):
+            if not node:
+                return 0
+            return calSum(node.left) + calSum(node.right) + node.val
+        
+        tilt(root)
+        return self.res
+        
+        
+        
