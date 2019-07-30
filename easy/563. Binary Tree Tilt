@@ -29,3 +29,27 @@ class Solution:
         
         
         
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def findTilt(self, root: TreeNode) -> int:
+        self.res = 0
+        
+        def calSum(node):
+            if not node:
+                return 0
+            left = calSum(node.left)
+            right = calSum(node.right)
+            self.res += abs(left - right)
+            return left + right + node.val
+        
+        calSum(root)
+        return self.res
+        
+        
+        
