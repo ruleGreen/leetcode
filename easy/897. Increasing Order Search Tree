@@ -1,0 +1,27 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        self.res = []
+        def inOrder(root):
+            if not root:
+                return
+            inOrder(root.left)
+            self.res.append(root.val)
+            inOrder(root.right)
+        inOrder(root)
+        root = node = TreeNode(self.res[0])
+        for i in range(1 ,len(self.res)):
+            new_node = TreeNode(self.res[i])
+            if node.right is None:
+                node.right = new_node
+                node = node.right
+        return root
+                
+            
+        
