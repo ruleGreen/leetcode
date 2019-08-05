@@ -25,3 +25,26 @@ class Solution:
                 
             
         
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        ans = self.cur = TreeNode(None)
+        def inOrder(node):
+            if not node:
+                return
+            inOrder(node.left)
+            node.left= None
+            self.cur.right = node
+            self.cur = node
+            inOrder(node.right)
+        inOrder(root)
+        return ans.right
+                
+            
+        
