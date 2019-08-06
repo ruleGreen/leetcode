@@ -1,0 +1,32 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        def findDepAndPar(root, value, depth):
+            if not root:
+                return 
+            if root.val == value:
+                return 0,0
+            if root.left and root.left.val == value:
+                depth += 1
+                root_v = root.val
+                return depth, root_v
+            if root.right and root.right.val == value:
+                depth += 1
+                root_v = root.val
+                return depth, root_v
+            return findDepAndPar(root.left, value, depth + 1) or findDepAndPar(root.right, value, depth + 1)
+        dep_x, root_x = findDepAndPar(root, x, 0)
+        dep_y, root_y = findDepAndPar(root, y, 0)
+        print(dep_x, root_x)
+        print(dep_y, root_y)
+        return dep_x == dep_y and root_x != root_y
+        
+        
+            
+        
