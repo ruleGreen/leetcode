@@ -1,0 +1,22 @@
+from collections import Counter
+
+class Solution:
+    def shortestCompletingWord(self, licensePlate: str, words: List[str]) -> str:
+        licensePlate = licensePlate.lower()
+        dict_license = {}
+        for i in licensePlate:
+            if i.isdigit() or i == ' ':
+                continue
+            if i not in dict_license:
+                dict_license[i] = 1
+            else:
+                dict_license[i] += 1
+        min_len, index = float("Inf"), 0
+        for i in range(0, len(words)):
+            word = Counter(words[i])
+            if Counter(dict_license) == (Counter(dict_license) & word):
+                length = len(words[i])
+                if length < min_len:
+                    min_len = length
+                    index = i
+        return words[index]
