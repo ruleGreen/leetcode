@@ -1,0 +1,23 @@
+class Solution:
+    def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
+        dict_domain = {}
+        for i in range(0, len(cpdomains)):
+            times, addr = cpdomains[i].strip().split()
+            if addr not in dict_domain:
+                dict_domain[addr] = int(times)
+            else:
+                dict_domain[addr] += int(times)
+            number = addr.count(".")
+            j = 1
+            while j < number + 1:
+                addr = addr.split('.', j)[1]
+                if addr not in dict_domain:
+                    dict_domain[addr] = int(times)
+                else:
+                    dict_domain[addr] += int(times)
+                j += 1
+        res = []
+        for k,v in dict_domain.items():
+            string = str(v) + ' ' + k
+            res.append(string)
+        return res
