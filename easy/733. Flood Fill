@@ -1,0 +1,19 @@
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        self.is_visited = []
+        self.row, self.col = len(image), len(image[0])
+        startColor = image[sr][sc]
+        def dfs(sr, sc, visit, startColor):
+            # print(sr, sc)
+            if sr < 0 or sc < 0 or sr >= self.row or sc >= self.col:
+                return 
+            if image[sr][sc] != startColor or sr * self.col + sc in visit:
+                return 
+            visit.append(sr * self.col + sc)
+            image[sr][sc] = newColor
+            dfs(sr + 1, sc, visit, startColor)
+            dfs(sr - 1, sc, visit, startColor)
+            dfs(sr, sc - 1, visit, startColor)
+            dfs(sr, sc + 1, visit, startColor)
+        dfs(sr, sc, self.is_visited, startColor)
+        return image
