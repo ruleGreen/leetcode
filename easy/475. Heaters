@@ -1,0 +1,32 @@
+class Solution(object):
+    def findRadius(self, houses, heaters):
+        """
+        :type houses: List[int]
+        :type heaters: List[int]
+        :rtype: int
+        """
+        houses.sort()
+        heaters.sort()
+     
+        i = 0
+        l = []
+        j = 0
+        while i < len(houses):
+            if j >= 1:
+                j = j - 1  
+                distance = abs(houses[i]-heaters[j])
+            else:
+                j = 0
+                distance = abs(houses[i]-heaters[0])
+            while j < len(heaters):
+                subdistance = abs(houses[i]-heaters[j])
+                if subdistance > distance:
+                    break
+                elif subdistance <= distance:
+                    distance = subdistance
+                    j = j + 1
+            l.append(distance)
+            i = i + 1
+    
+        return max(l)
+        
