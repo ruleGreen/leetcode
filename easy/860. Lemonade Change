@@ -1,0 +1,29 @@
+from collections import Counter
+
+class Solution(object):
+    def lemonadeChange(self, bills):
+        """
+        :type bills: List[int]
+        :rtype: bool
+        """
+        change_dict = Counter({20:0, 10:0, 5:0})
+        for i in range(0, len(bills)):
+            if bills[i] == 5:
+                change_dict[5] += 1
+            elif bills[i] == 10:
+                if change_dict[5] > 0:
+                    change_dict[5] -= 1
+                    change_dict[10] += 1
+                else:
+                    return False
+            else:
+                if change_dict[10] > 0 and change_dict[5] > 0:
+                    change_dict[10] -= 1
+                    change_dict[5] -= 1
+                    change_dict[20] += 1
+                elif change_dict[5] > 2:
+                    change_dict[5] -= 3
+                    change_dict[20] += 1
+                else:
+                    return False
+        return True
