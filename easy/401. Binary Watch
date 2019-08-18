@@ -1,0 +1,65 @@
+1. method one tle
+
+class Solution:
+    def readBinaryWatch(self, num: int) -> List[str]:
+        # clock[0:6] MINUTE clock[6:] HOURS
+        clock = [32, 16, 8, 4, 2, 1, 8, 4, 2, 1]
+        flag = [False for i in range(0, len(clock))]
+        res = []
+        
+        def dfs(flag, n):
+            hours, minutes = 0, 0
+            for i in range(0, len(flag)):
+                if flag[i] == True and 0 <= i < 6:
+                    minutes += clock[i]
+                elif flag[i] == True and i >= 6:
+                    hours += clock[i]
+            if 0 <= hours <= 11 and 0 <= minutes <= 59:
+                if minutes < 10:
+                    time = str(hours) + ":" + "0" + str(minutes)
+                else:
+                    time = str(hours) + ":" + str(minutes)
+                if n == num:
+                    if time not in res:
+                        res.append(time)
+                    return
+                for i in range(0, len(flag)):
+                    if flag[i] == False:
+                        flag[i] = True
+                        dfs(flag, n + 1)
+                        flag[i] = False
+        dfs(flag, 0)
+        return res
+        
+2. method two
+
+class Solution:
+    def readBinaryWatch(self, num: int) -> List[str]:
+        # clock[0:6] MINUTE clock[6:] HOURS
+        clock = [32, 16, 8, 4, 2, 1, 8, 4, 2, 1]
+        flag = [False for i in range(0, len(clock))]
+        res = []
+        
+        def dfs(flag, start, n):
+            hours, minutes = 0, 0
+            for i in range(0, len(flag)):
+                if flag[i] == True and 0 <= i < 6:
+                    minutes += clock[i]
+                elif flag[i] == True and i >= 6:
+                    hours += clock[i]
+            if 0 <= hours <= 11 and 0 <= minutes <= 59:
+                if minutes < 10:
+                    time = str(hours) + ":" + "0" + str(minutes)
+                else:
+                    time = str(hours) + ":" + str(minutes)
+                if n == num:
+                    if time not in res:
+                        res.append(time)
+                    return
+                for i in range(start, len(flag)):
+                    if flag[i] == False:
+                        flag[i] = True
+                        dfs(flag, i, n + 1)
+                        flag[i] = False
+        dfs(flag, 0, 0)
+        return res
