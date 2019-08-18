@@ -1,0 +1,16 @@
+class Solution:
+    def allCellsDistOrder(self, R: int, C: int, r0: int, c0: int) -> List[List[int]]:
+        res = []
+        is_visited = set()
+        queue = collections.deque()
+        
+        queue.append((r0, c0))
+        while len(queue) != 0:
+            r, c = queue.popleft()
+            if 0 <= r < R and 0 <= c < C and (r,c) not in is_visited:
+                is_visited.add((r,c))
+                res.append([r, c])
+                for r1, c1 in ((r + 1, c), (r - 1, c), (r, c - 1), (r, c + 1)):
+                    if (r1, c1) not in is_visited:
+                        queue.append((r1, c1))
+        return res
