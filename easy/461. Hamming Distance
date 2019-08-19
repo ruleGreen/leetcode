@@ -1,0 +1,15 @@
+class Solution(object):
+    def hammingDistance(self, x, y):
+        """
+        :type x: int
+        :type y: int
+        :rtype: int
+        """
+        count = 0
+        num = x ^ y
+        while num:
+            if num & 1:
+                count += 1
+            num = num >> 1
+        return count
+            
