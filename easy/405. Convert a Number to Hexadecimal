@@ -1,0 +1,16 @@
+class Solution(object):
+    def toHex(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        # （2^4)^N
+        if num == 0:
+            return "0"
+        mp = "0123456789abcdef"
+        rs = ""
+        for i in range(8):
+            rs = mp[num % 16] + rs
+            num = num >> 4
+    
+        return rs.lstrip('0')
