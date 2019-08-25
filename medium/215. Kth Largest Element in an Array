@@ -1,0 +1,28 @@
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        def partition(begin, end):
+            if begin > end:
+                return
+            i = begin
+            pivot = nums[end]
+            for j in range(begin, end):
+                if nums[j] > pivot:
+                    nums[i], nums[j] = nums[j], nums[i]
+                    i += 1
+            nums[i], nums[end] = nums[end], nums[i]
+            return i
+        
+        index = partition(0, len(nums) - 1)
+        # print(index, nums, nums[index], nums[0:index], nums[index:])
+        if index == k - 1:
+            return nums[index]
+        elif index > k - 1:
+            return self.findKthLargest(nums[0:index], k)
+        else:
+            return self.findKthLargest(nums[index + 1:], k - (index + 1))
+        
