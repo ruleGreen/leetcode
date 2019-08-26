@@ -1,0 +1,60 @@
+1. method one
+
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        self.res = 1
+        
+        def findPrerequisites(k, v, course, visited, answer):
+            if answer[k] == True:
+                return
+                
+            visited.append(k)
+            # print(k, v, visited, answer)
+            for i in range(0, len(v)):
+                if v[i] in visited and answer[v[i]] == False:
+                    self.res = 0
+                    return 
+                if v[i] in course and answer[v[i]] == False:
+                    findPrerequisites(v[i], course[v[i]], course, visited, answer)
+            
+            flag= 1
+            
+            for j in range(0, len(v)):
+                if answer[v[i]] == False:
+                    flag = 0
+            
+            if flag:
+                answer[k] = True
+            
+        
+        if numCourses == 1 or len(prerequisites) == 0:
+            return True
+                    
+        course = {}
+        for i in range(0, len(prerequisites)):
+            if prerequisites[i][0] not in course:
+                course[prerequisites[i][0]] = [prerequisites[i][1]]
+            else:
+                course[prerequisites[i][0]].append(prerequisites[i][1])
+        
+        
+        
+        visited, answer = [], [False for i in range(0, numCourses)]
+        for i in range(0, numCourses):
+            if i not in course:
+                answer[i] = True
+                
+        for k, v in course.items(): 
+            findPrerequisites(k, v, course, visited, answer)
+        
+        print(answer)
+        if all(answer) and self.res != 0:
+            return True
+        return False
+        
+     
