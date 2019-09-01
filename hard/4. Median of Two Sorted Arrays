@@ -1,0 +1,46 @@
+#
+# @lc app=leetcode id=4 lang=python3
+#
+# [4] Median of Two Sorted Arrays
+#
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # time complex O(log(m+n))
+        # quick sort or recursion sort
+        nums = nums1 + nums2
+        print(nums)
+        nums = self.recursionSort(nums)
+        length = len(nums)
+        if length % 2 == 0:
+            median = (nums[length // 2] + nums[length // 2 - 1]) / 2
+        else:
+            median = nums[length // 2]
+        
+        return median
+    
+    def recursionSort(self, nums):
+        if len(nums) == 1:
+            return nums
+        mid = len(nums) // 2
+        arr_l = self.recursionSort(nums[:mid])
+        arr_r = self.recursionSort(nums[mid:])
+        return self.merge(arr_l, arr_r)
+    
+    def merge(self, arr_l, arr_r):
+        nums = []
+        while len(arr_l) and len(arr_r):
+            if arr_l[0] <= arr_r[0]:
+                nums.append(arr_l.pop(0))
+            else:
+                nums.append(arr_r.pop(0))
+        if len(arr_l) != 0:
+            nums += arr_l
+        
+        if len(arr_r) != 0:
+            nums += arr_r
+        
+        return nums
+
+
+
+
