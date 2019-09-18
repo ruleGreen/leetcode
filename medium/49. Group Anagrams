@@ -1,0 +1,25 @@
+1. method one: brute force  100/101 test cases passed
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        if len(strs) == 0 or strs is None:
+            return [[]]
+        
+        res, flag = [], 0 
+        
+        for i in range(len(strs)):
+            s = sorted(strs[i])
+            for j in range(len(res)):
+                current = sorted(res[j][0])
+                if current == s:
+                    flag = 1
+                    res[j].append(strs[i])
+                    break
+            if flag == 0:
+                res.append([strs[i]])
+            flag = 0
+                    
+        return res
+        
+        
+2. hash function
