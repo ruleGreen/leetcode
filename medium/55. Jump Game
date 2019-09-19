@@ -1,0 +1,26 @@
+1. method one: brute force (Time Limit Exceed)
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        # I think this is a dp question or maybe can be solved by using recursion
+        # dp(n) = 1 - dp(nums[i])
+        # i: nums[i] => nums[i+1] -> nums[i+nums[i]] if nums[i] > 0
+        canJ = [False for _ in range(len(nums))]
+        canJ[0] = True
+        start = 0
+        while start < len(nums):
+            if canJ[start] == True:
+                i = 1
+                while i <= nums[start] and (start + i < len(nums)):
+                    canJ[start + i] = True
+                    i += 1
+                if canJ[len(nums) - 1] == True:
+                    return True
+                start += 1
+            else:
+                start += 1
+        return False
+        
+
+2. method two:
+
