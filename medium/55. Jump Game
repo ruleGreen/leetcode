@@ -24,3 +24,29 @@ class Solution:
 
 2. method two:
 
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        # I think this is a dp question or maybe can be solved by using recursion
+        # dp(n) = 1 - dp(nums[i])
+        # i: nums[i] => nums[i+1] -> nums[i+nums[i]] if nums[i] > 0
+        canJ = [False for _ in range(len(nums))]
+        canJ[0] = True
+        start = 0
+        while start < len(nums):
+            if canJ[start] == True:
+                if start + nums[start] < len(canJ) and canJ[start + nums[start]] == True:
+                    pass
+                else:
+                    if start + nums[start] >= len(nums):
+                        return True
+                    else:
+                        i = 1
+                        while i <= nums[start]:
+                            canJ[start + i] = True
+                            i += 1
+                if canJ[len(nums) - 1] == True:
+                    return True
+                start += 1
+            else:
+                start += 1
+        return False
