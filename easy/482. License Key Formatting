@@ -2,3 +2,25 @@ class Solution:
     def licenseKeyFormatting(self, S: str, K: int) -> str:
         S = S.replace("-", "").upper()[::-1]
         return '-'.join(S[i:i+K] for i in range(0, len(S), K))[::-1]
+
+
+class Solution:
+    def licenseKeyFormatting(self, S: str, K: int) -> str:
+        S = "".join(S.upper().split('-'))
+        length = len(S)
+        print(length, S)
+        
+        S = list(S)
+        if length % K == 0:
+            index = len(S)
+            while index > K:
+                index = index - K
+                S.insert(index, '-')
+            return "".join(S)
+        else:
+            first = length % K
+            index = len(S)
+            while index > first:
+                index = index - K
+                S.insert(index, '-')
+            return "".join(S)
