@@ -1,0 +1,50 @@
+# runtime error
+
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        
+        # down up -> 分母 分子
+        down = [char[1] for char in equations]
+        up = [char[0] for char in equations]
+        
+        
+        def f(a, b, memo):
+            string = a + b
+            if string in memo:
+                return memo[string]
+            else:
+                if b not in down and b not in up:
+                    print("down up", down, up)
+                    value = - 1.0
+                else:
+                    # a -> equations[i][0]
+                    # b -> equations[i][1]
+                    for i in range(len(equations)):
+                        if b == equations[i][1]:
+                            value = f(a, equations[i][0], memo) * memo[equations[i][0] + equations[i][1]]
+                            if f(a, equations[i][0], memo) == - 1.0:
+                                value = - 1.0
+                        elif b == equations[i][0]:
+                            value = f(a, equations[i][1], memo) / memo[equations[i][0] + equations[i][1]]
+                            if f(a, equations[i][1], memo) == - 1.0:
+                                value = - 1.0
+            memo[string] = value
+            return value
+        
+        print(down, up)
+        
+        # init memo
+        memo = {}
+        for i in range(len(equations)):
+            memo[equations[i][0] + equations[i][1]] = values[i]
+            memo[equations[i][1] + equations[i][0]] = 1 / values[i]
+            memo[equations[i][0] + equations[i][0]] = 1.0
+            memo[equations[i][1] + equations[i][1]] = 1.0
+        
+        # compute query
+        res = []
+        for j in range(len(queries)):
+            res.append(f(queries[j][0], queries[j][1], memo))
+        
+        return res
+            
