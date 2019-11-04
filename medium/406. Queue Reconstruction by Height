@@ -1,0 +1,30 @@
+class Solution:
+    def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        
+        # first of all sort the people by height and #
+        # first key: height, second key: number
+        people = sorted(people, key = lambda x: (x[0], x[1]))
+        
+        result = [[] for _ in range(len(people))]
+        print(result)
+        
+        # current empty position
+        empty = [i for i in range(len(result))]
+        print(empty)
+        
+        for i in range(len(people)):
+            # put the element into result
+            # first you need to judge how many people in front of you is higher or equal than you
+            count = 0
+            for j in range(len(result)):
+                if len(result[j]) == 2 and result[j][0] >= people[i][0]:
+                    count += 1
+            # print("height", people[i][0], "count", count)
+            result[empty[people[i][1] - count]] = people[i]
+            empty.pop(people[i][1] - count)
+            # print("result empty", result, empty)
+        
+        return result
+            
+            
+            
