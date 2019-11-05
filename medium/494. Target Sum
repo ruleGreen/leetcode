@@ -22,3 +22,30 @@ class Solution:
         self.getSumWays(nums[1:], s - nums[0], '-')
         
 method two: DP maybe
+
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        
+        # method tow: DP
+        left, right = - sum(nums), sum(nums)
+        # print(left, right)
+        
+        if S < left or S > right:
+            return 0
+        
+        res = [[0 for _ in range(right - left + 1)] for _ in range(len(nums))]
+        
+        # init the first col
+        res[0][nums[0] + right] += 1
+        res[0][-nums[0] + right] += 1
+        # print(res)
+        for i in range(0, len(res) - 1):
+            for j in range(len(res[0])):
+                if res[i][j] > 0:
+                    # print("j, i", j, i)
+                    # print(j, nums[i+1])
+                    res[i+1][j + nums[i+1]] += res[i][j]
+                    res[i+1][j - nums[i+1]] += res[i][j]
+                # print("res -> i", res[i], "res-> i+1", res[i+1])
+        return res[-1][S + right]
