@@ -22,3 +22,21 @@ class Solution:
     
     
     
+class Solution(object):
+    def countSubstrings(self, S):
+        # 以每一个S里面的元素作为palindromic的中心点进行扩散
+        N = len(S)
+        ans = 0
+        for center in range(2*N - 1):
+            print("center1", center)
+            left = center // 2
+            right = left + center % 2
+            print("left and right", left, right)
+            while left >= 0 and right < N and S[left] == S[right]:
+                # print("CENTER", center, "LEFT AND RIGHT", S[left], S[right])
+                ans += 1
+                left -= 1
+                right += 1
+        return ans
+    
+    
