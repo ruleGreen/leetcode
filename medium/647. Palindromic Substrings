@@ -1,0 +1,24 @@
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        # method one recursion
+        # method three brute force
+        count = 0
+        for i in range(0, len(s)):
+            for j in range(i, len(s)):
+                # print(s[i:j+1])
+                if self.isPalindromic(s[i:j+1]):
+                    count += 1
+        return count
+        # method two dp
+        
+    
+    def isPalindromic(self, string):
+        if len(string) == 1:
+            return True
+        for i in range(0, len(string) // 2):
+            if string[i] != string[- (i + 1)]:
+                return False
+        return True
+    
+    
+    
