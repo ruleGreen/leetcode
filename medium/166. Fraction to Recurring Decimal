@@ -36,3 +36,21 @@ class Solution:
         if flag == 0:
             return "-" + str(before_point) + "." + "".join([str(num[i]) for i in range(0, index + 1)]) + "(" + "".join([str(num[i]) for i in range(index + 1, len(num))]) + ")"
         return str(before_point) + "." + "".join([str(num[i]) for i in range(0, index + 1)]) + "(" + "".join([str(num[i]) for i in range(index + 1, len(num))]) + ")"
+
+
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        n, remainder = divmod(abs(numerator), abs(denominator))
+        sign = '-' if numerator*denominator < 0 else ''
+        result = [sign+str(n), '.']
+        stack = []
+        while remainder not in stack:
+            stack.append(remainder)
+            n, remainder = divmod(remainder*10, abs(denominator))
+            result.append(str(n))
+        
+        print(result, remainder)
+        idx = stack.index(remainder)
+        result.insert(idx+2, '(')
+        result.append(')')
+        return ''.join(result).replace('(0)', '').rstrip('.')
