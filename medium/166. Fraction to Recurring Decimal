@@ -1,0 +1,38 @@
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        flag = 1
+        if numerator < 0 and denominator > 0:
+            numerator = -numerator
+            flag = 0
+        elif numerator > 0 and denominator < 0:
+            denominator = -denominator
+            flag = 0
+            
+        before_point = numerator // denominator
+        after_point = numerator % denominator
+        
+        if after_point == 0 and flag == 1:
+            return str(before_point)
+        if after_point == 0 and flag == 0:
+            return "-" + str(before_point)
+
+        num, res = [], []
+        while 10 * after_point % denominator not in res:
+            num.append(10 * after_point // denominator)
+            res.append(10 * after_point % denominator)
+            after_point = 10 * after_point % denominator
+        
+        end = 10 * after_point % denominator
+        print(end, flag)
+        if end == 0 and flag == 0:
+            return "-" + str(before_point) + "." + "".join([str(num[i]) for i in range(len(num))])
+        if end == 0 and flag == 1:
+            return str(before_point) + "." + "".join([str(num[i]) for i in range(len(num))])
+        num.append(10 * after_point // denominator)
+        for i in range(len(res) - 1, -1, -1):
+            if res[i] == end:
+                index = i 
+                break
+        if flag == 0:
+            return "-" + str(before_point) + "." + "".join([str(num[i]) for i in range(0, index + 1)]) + "(" + "".join([str(num[i]) for i in range(index + 1, len(num))]) + ")"
+        return str(before_point) + "." + "".join([str(num[i]) for i in range(0, index + 1)]) + "(" + "".join([str(num[i]) for i in range(index + 1, len(num))]) + ")"
