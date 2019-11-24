@@ -1,0 +1,6 @@
+class Solution:
+    def hasAlternatingBits(self, n: int) -> bool:
+        binary = list(bin(n))
+        bin_even = [0 if i % 2 == 0 else 1 for i in range(len(binary) - 2)]
+        bin_odd = [1 if i % 2 == 0 else 0 for i in range(len(binary) - 2)]
+        return list(map(int, binary[2:])) == bin_even or list(map(int, binary[2:])) == bin_odd
