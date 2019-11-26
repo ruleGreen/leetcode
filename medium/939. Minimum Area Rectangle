@@ -1,0 +1,35 @@
+1. Time Limit Exceed
+
+class Solution:
+    def minAreaRect(self, points: List[List[int]]) -> int:
+        # brute force
+        points = sorted(points, key = lambda x: (x[0], x[1]))
+        x = sorted(set([points[i][0] for i in range(len(points))]))
+        y = sorted(set([points[i][1] for i in range(len(points))]))
+        
+        point, area = 0, float("inf")
+        for i in range(len(x) - 1): #从x轴开始遍历
+            current = []
+            
+            while x[i] == points[point][0]:
+                current.append(points[point])
+                point += 1
+            
+            # print(current)
+            
+            for j in range(len(current) - 1):
+                for z in range(j + 1, len(current)):
+                    point_x = current[j]
+                    point_y = current[z]
+                    
+                    # print(point_x, point_y)
+                    
+                    for p in range(i+1, len(x)):
+                        if [x[p], point_x[1]] in points and [x[p], point_y[1]] in points:
+                            area = min(area, (x[p] - x[i]) * (point_y[1] - point_x[1]))
+                            break
+                            
+        if area == float("inf"):
+            return 0
+        
+        return area
