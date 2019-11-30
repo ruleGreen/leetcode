@@ -1,0 +1,30 @@
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.res = []
+        
+        candidates = [candidates[i] for i in range(len(candidates)) if candidates[i] <= target ]
+        self.dfs(candidates, target, [])
+        
+        return self.res
+    
+    def dfs(self, cands, target, memo):
+        # print(memo, target, cands)
+        if target == 0:
+            memo = sorted(memo)
+            # print(self.res,"before res")
+            if memo not in self.res:
+                self.res.append(memo)
+            # print(self.res, "after res")
+            return 
+        
+        if target < 0:
+            return
+        
+        for i in range(0, len(cands)):
+            value = cands.pop(i)
+            memo.append(value)
+            if target - value >= 0:
+                self.dfs(cands, target - value, memo)
+            memo.pop(-1)
+            cands.insert(i, value)
+            
