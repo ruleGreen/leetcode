@@ -1,0 +1,16 @@
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        symbol = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M']
+        number = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000]
+        
+        # brute force
+        # 3999 = 1000 + 1000 + 1000 + 900 + 90 + 9
+        end, res = 12, ""
+        while end >= 0 and num > 0:
+            if num >= number[end]:
+                num -= number[end]
+                res += symbol[number.index(number[end])]
+            else:
+                end -= 1
+            # print(num, res, end)
+        return res
