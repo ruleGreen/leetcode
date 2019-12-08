@@ -1,0 +1,23 @@
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        cands = [i for i in range(1, 10)]
+        
+        self.res = []
+        self.dfs(cands, [], k, n)
+        
+        return self.res
+        
+    def dfs(self, cands, memo, k, n):
+        if len(memo) == k and sum(memo) == n:
+            memo = sorted(memo)
+            if memo not in self.res:
+                self.res.append(memo)
+            return
+        elif len(memo) > k or sum(memo) > n:
+            return
+        
+        for i in range(len(cands)):
+            memo.append(cands[i])
+            self.dfs(cands[:i]+cands[i+1:], memo, k, n)
+            memo.pop()
+        
