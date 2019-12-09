@@ -1,0 +1,19 @@
+class Solution:
+    # TLE
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        
+        # dp
+        nums.sort()
+        result = [1] + [0] * target
+        
+        for i in range(len(result)):
+            for num in nums:
+                if num == i:
+                    result[i] += 1
+                elif num < i:
+                    result[i] += result[i - num] 
+                elif num > i:
+                    break
+                    
+        return result[target]
+                
