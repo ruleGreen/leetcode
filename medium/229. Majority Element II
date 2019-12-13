@@ -1,0 +1,20 @@
+# 这题目隐藏了一个条件就是说 符合条件的数只会有两个 或者 一个 或者 零个
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        
+        n = len(nums)
+        threshold = n // 3
+        
+        cands, res = {}, []
+        for i in range(len(nums)):
+            if nums[i] in cands:
+                cands[nums[i]] += 1
+            else:
+                cands[nums[i]] = 1
+        
+        for k, v in cands.items():
+            if v > threshold:
+                res.append(k)
+        
+        return res
