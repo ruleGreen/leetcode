@@ -1,0 +1,39 @@
+class Solution:
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        # solve this in-place infinite
+        new = [[None for _ in range(len(board[0]))] for _ in range(len(board))]
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                liveNeigh = self.getLiveNeighbor(i, j, board)
+                # print(i, j, liveNeigh)
+                if board[i][j] == 1: # lives
+                    if liveNeigh == 2 or liveNeigh == 3:
+                        new[i][j] = 1
+                    else:
+                        new[i][j] = 0
+                else:  # dies
+                    if liveNeigh == 3:
+                        new[i][j] = 1
+                    else:
+                        new[i][j] = 0
+        board[:] = new
+    
+    def getLiveNeighbor(self, r, c, board):
+        # lives   < 2   > 3 dies
+        # lives   2 3 lives
+        # dies == 3  lives
+        count = 0
+        max_r, max_c = len(board), len(board[0])
+        start_r = r - 1 if r - 1 >= 0 else 0
+        end_r = r + 2 if r + 2 <= max_r else max_r
+        start_c = c - 1 if c - 1 >= 0 else 0
+        end_c = c + 2 if c + 2 <= max_c else max_c
+        # print("+++", start_r, end_r, start_c, end_c)
+        for i in range(start_r, end_r):
+            for j in range(start_c, end_c):
+                if (i != r or j != c) and board[i][j] == 1:
+                    count += 1
+        return count
