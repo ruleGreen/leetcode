@@ -1,0 +1,17 @@
+class Solution:
+    def arrayNesting(self, nums: List[int]) -> int:
+        if len(nums) == 0 or nums is None: return 0
+        
+        visited = [False for _ in range(len(nums))]
+        res, index = 0, []
+        for i in range(len(nums)):
+            if visited[i] == False:
+                s = []
+                current = nums[i]
+                while current not in s:
+                    s.append(current)
+                    visited[current] = True
+                    current = nums[current]
+                res = max(len(s), res)
+        
+        return res
