@@ -1,0 +1,26 @@
+class Solution:
+    def maximumSwap(self, num: int) -> int:
+        digits = list(str(num))
+        digits = [int(digits[i]) for i in range(len(digits))]
+        
+        rev = sorted(digits, reverse = True)
+        
+        if rev == digits:
+            return num
+        
+        start = 0
+        while start < len(digits):
+            if digits[start] != rev[start]:
+                # swap number
+                for i in range(start + 1, len(digits)):
+                    if digits[i] == rev[start]:
+                        index = i
+                # digits[start], digits[digits.index(rev[start])] = digits[digits.index(rev[start])], digits[start]
+                digits[start], digits[index] = digits[index], digits[start]
+                # print("after change", digits)
+                break
+            else:
+                start += 1
+        
+        # print("final digits", digits)
+        return int("".join([str(digits[i]) for i in range(len(digits))]))
