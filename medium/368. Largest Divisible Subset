@@ -21,3 +21,12 @@ class Solution:
         return combina[0]
 
 
+class Solution(object):
+    def largestDivisibleSubset(self, nums):
+        nums.sort()
+        
+        combina = [[]]
+        for i in range(len(nums)):
+            combina += [j + [nums[i]] for j in combina if (len(j) > 0 and nums[i] % j[-1] == 0) or len(j) == 0]
+        
+        return sorted(combina, key = lambda x:len(x), reverse = True)[0]
