@@ -1,0 +1,23 @@
+Time Limit Exceed
+
+class Solution:
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        
+        # produce combination
+        combina = [[]]
+        for i in range(len(nums)):
+            new = []
+            for j in combina:
+                flag = 0
+                for p in range(len(j)):
+                    if not (j[p] % nums[i] == 0 or nums[i] % j[p] == 0):
+                        flag = 1
+                if flag == 0:
+                    new.extend([j + [nums[i]]])
+            # print("new", new)
+            combina += new
+        
+        combina = sorted(combina, key = lambda x:len(x), reverse = True)
+        return combina[0]
+
+
