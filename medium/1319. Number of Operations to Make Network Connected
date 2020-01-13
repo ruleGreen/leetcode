@@ -1,0 +1,41 @@
+class Solution:
+    def makeConnected(self, n, connections):
+        if len(connections) < n - 1: return -1
+        G = [set() for i in range(n)]
+        for i, j in connections:
+            G[i].add(j)
+            G[j].add(i)
+        seen = [0] * n
+
+        def dfs(i):
+            if seen[i]: return 0
+            seen[i] = 1
+            for j in G[i]: dfs(j)
+            return 1
+
+        return sum(dfs(i) for i in range(n)) - 1
+        
+class Solution {
+    int []father;
+    int find(int x) {
+        if (father[x] == x) return x;
+        return father[x] = find(father[x]);
+    }
+    
+    public int makeConnected(int n, int[][] connections) {
+        if (connections.length < n-1) return -1;
+        father = new int[n];
+        for (int i = 0; i < n; i++) father[i] = i;
+        for (int i = 0; i < connections.length; i++) {
+            int a = connections[i][0];
+            int b = connections[i][1];
+            int fa = find(a);
+            int fb = find(b);
+            father[fa] = fb;
+        }
+        int res = -1;
+        for (int i = 0; i < n; i++) if (father[i] == i) res++;
+        return res;
+    }
+    
+}
