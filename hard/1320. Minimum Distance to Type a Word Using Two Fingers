@@ -23,3 +23,32 @@ public:
         return dp(0, kRet, kRet);
     }
 };
+
+
+class Solution {
+public:
+    int minimumDistance(string word) {
+        constexpr int kRet = 26;
+        const int n = word.length();
+        vector<vector<int>> mem(n, vector<int>(27));
+        
+        auto cost = [](int c1, int c2) {
+            if (c1 == kRet) return 0;
+            return abs(c1/6 - c2/6) + abs(c1%6 - c2%6);
+        };
+        
+        // min cost to type word[i:n]. o is the last position of the other finger.
+        // the current finger is at word[i-1]
+        function<int(int, int)> dp = [&](int i, int o) {
+            if (i == n) return 0;
+            if (mem[i][o]) return mem[i][o];
+            int p = i == 0? kRet : word[i-1] - 'A';
+            int c = word[i] - 'A';
+            return mem[i][o] = min(dp(i+1, o) + cost(p, c),   // same finger 
+                                   dp(i+1, p) + cost(o, c));  // other finger
+        };
+        
+        return dp(0, kRet);
+    }
+};
+
