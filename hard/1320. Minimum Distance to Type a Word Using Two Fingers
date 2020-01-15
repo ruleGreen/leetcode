@@ -1,0 +1,25 @@
+1. C++
+
+class Solution {
+public:
+    int minimumDistance(string word) {
+        constexpr int kRet = 26;
+        const int n = word.length();
+        vector<vector<vector<int>>> mem(n, vector<vector<int>>(27, vector<int>(27)));
+        
+        auto cost = [](int c1, int c2) {
+            if (c1 == kRet) return 0;
+            return abs(c1 / 6 - c2 / 6) + abs(c1 % 6 - c2 % 6);
+        };
+        
+        // min cost to type word[i:n]. l, r are the last finger positions
+        function<int(int, int, int)> dp = [&](int i, int l, int r) {
+            if (i == n) return 0;
+            if (mem[i][l][r]) return mem[i][l][r];
+            int c = word[i] - 'A';
+            return mem[i][l][r] = min(dp(i+1, c, r) + cost(l, c), dp(i+1, l, c) + cost(r, c));
+        };
+        
+        return dp(0, kRet, kRet);
+    }
+};
