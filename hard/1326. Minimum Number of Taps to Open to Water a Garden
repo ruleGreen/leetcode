@@ -1,0 +1,34 @@
+class Solution:
+    def minTaps(self, n: int, ranges: List[int]) -> int:
+        
+        cands = []
+        for i in range(len(ranges)):
+            cands.append([i - ranges[i], i + ranges[i]])
+                
+        cands= sorted(cands, key = lambda x: (x[0],x[1]))
+        
+        start, end, last = 0, 0, 0
+        res = 0
+        
+        x, y = min(cands[i][0] for i in range(len(cands))), max(cands[i][1] for i in range(len(cands)))
+        if x > 0 or y < n:
+            return -1
+        
+        while start < n:
+            # print(last, start, end, cands)
+            
+            if cands[end][0] > start:
+                return -1
+            for i in range(end, len(cands)):
+                if cands[i][0] <= start:
+                    last = max(cands[i][1], last)
+                else:
+                    res += 1
+                    start = last
+                    end = i
+                    break
+                
+                if i == len(cands) - 1:
+                    res += 1
+                    return res
+        return res
