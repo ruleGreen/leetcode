@@ -1,0 +1,37 @@
+class Solution:
+    def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
+        # constrcut the tuple which is ([1,2], sum_speed, min_efficiency)
+        cands = [[]] * k
+        
+        cands[0] = [([i], speed[i], efficiency[i]) for i in range(len(speed))]
+        for i in range(1, len(cands)):
+            # length i + 1
+            for j in range(len(cands[i-1])):
+                combina, sum_speed, min_eff = cands[i-1][j][:]
+                result = self._gen(n, i, cands, combina, sum_speed, min_eff, speed, efficiency)
+                cands[i].extend(result)
+        
+        return max(cands[i][j][1] * cands[i][j][2] for i in range(len(cands)) for j in range(len(cands[i])))
+    
+    def _gen(self, n, i, cands, combina, sum_speed, min_eff, speed, efficiency):
+        all_people = [i for i in range(n)]
+        not_visited = [i for i in all_people if i not in combina]
+        result = []
+        
+        for i in range(len(not_visited)):
+            combina.append(not_visited[i])
+            current = [result[i][0] for i in range(len(result))]
+            new_combina = combina[:]
+            new_combina.sort()
+            if combina not in current:
+                new_sum_speed = sum_speed + speed[not_visited[i]]
+                new_min_eff = min(min_eff, efficiency[not_visited[i]])
+                result.append((new_combina, new_sum_speed, new_min_eff))
+            combina.pop(-1)
+                
+        return result
+        
+        
+            
+            
+        
