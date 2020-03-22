@@ -1,0 +1,26 @@
+class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -> bool:
+        if not grid: return False
+        directions = {1: [(0,-1),(0,1)],
+                      2: [(-1,0),(1,0)],
+                      3: [(0,-1),(1,0)],
+                      4: [(0,1),(1,0)],
+                      5: [(0,-1),(-1,0)],
+                      6: [(0,1),(-1,0)]}
+        
+        visited = set()
+        def dfs(start, end):
+            if start == len(grid) - 1 and end == len(grid[0]) - 1:
+                return True
+            
+            visited.add((start, end))
+            for i, j in directions[grid[start][end]]:
+                n_start = start + i
+                n_end = end + j
+                
+                if 0 <= n_start < len(grid) and 0 <= n_end < len(grid[0]) and (n_start, n_end) not in visited and (-i, -j) in directions[grid[n_start][n_end]]:
+                    if dfs(n_start, n_end):
+                        return True
+            return False
+        
+        return dfs(0, 0)
