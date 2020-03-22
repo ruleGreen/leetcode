@@ -1,0 +1,16 @@
+class Solution:
+    def sumFourDivisors(self, nums: List[int]) -> int:
+        result = 0
+        for i in range(len(nums)):
+            res = set()
+            res.add(1)
+            res.add(nums[i])
+            for j in range(2, int(sqrt(nums[i])) + 1):
+                if nums[i] % j == 0:
+                    res.add(j)
+                    res.add(nums[i] // j)
+            if len(res) == 4:
+                result += sum(res)
+        return result
+            
+    
