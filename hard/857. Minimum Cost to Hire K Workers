@@ -1,0 +1,21 @@
+class Solution:
+    def mincostToHireWorkers(self, quality: List[int], wage: List[int], K: int) -> float:
+        res = float("inf")
+        eff = [wage[i] / quality[i] for i in range(len(quality))]
+        total_q = 0
+        res_list = list()
+        
+        for e, q, w in sorted(zip(eff, quality, wage)):
+            print(e, q, w)
+            res_list.append(q)
+            total_q += q
+            if len(res_list) == K:
+                res = min(res, total_q * e)
+                total_q -= max(res_list)
+                res_list.remove(max(res_list))
+                
+        return res
+            
+        
+                
+        
