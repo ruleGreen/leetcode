@@ -1,0 +1,44 @@
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # dfs 
+        self.res = list()
+        if endWord not in wordList:
+            return 0
+        
+        
+        def judge(begin, end):
+            count = 0
+            
+            if len(begin) != len(end):
+                return False
+            
+            for i in range(len(begin)):
+                if begin[i] != end[i]:
+                    count += 1
+            
+            return True if count == 1 else False
+                    
+        
+        def dfs(begin, end, dictionary, curr):
+            if judge(begin, end):
+                self.res.append(curr+1)
+            
+            # get cands
+            cands = list()
+            for i in range(len(dictionary)):
+                if judge(begin, dictionary[i]):
+                    cands.append(dictionary[i])
+            
+            filter_dict = []
+            for i in range(len(dictionary)):
+                if dictionary[i] not in cands:
+                    filter_dict.append(dictionary[i])
+            
+            for i in range(len(cands)):
+                dfs(cands[i], end, filter_dict, curr + 1)
+        
+        dfs(beginWord, endWord, wordList, 1)
+            
+        
+        return min(self.res) if self.res else 0
+        
